@@ -3,7 +3,7 @@ import { describe, expect, test, beforeAll, afterAll } from "@jest/globals";
 import * as dotenv from "dotenv";
 import { Server } from "../src/server";
 import { Driver } from "../src/driver/aoc-driver";
-import get from "../src/routes/get";
+import get from "../src/routes/problemdescription";
 import getIsUp from "../src/routes/isup";
 import axios from "axios";
 import { AOCParams, Problem, Route } from "../src/types";

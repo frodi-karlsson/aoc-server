@@ -32,7 +32,7 @@ export class APIClient {
   }
 
   private static getProblemDescription(year: number, day: number) {
-    const url = `${this.serverUrl}/get/${year}/${day}`;
+    const url = `${this.serverUrl}/getproblemdescription/${year}/${day}`;
     return axios.get(url);
   }
 

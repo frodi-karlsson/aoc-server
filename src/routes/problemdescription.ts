@@ -1,7 +1,7 @@
 import { Driver } from "../driver/aoc-driver";
 import { ProblemRequestParams, Route } from "../types";
 
-const get: (driver: Driver) => Route<ProblemRequestParams> = (driver) =>
+const getProblemDescription: (driver: Driver) => Route<ProblemRequestParams> = (driver) =>
   new Route(
     {
       handler: async (req, res) => {
@@ -22,9 +22,9 @@ const get: (driver: Driver) => Route<ProblemRequestParams> = (driver) =>
         res.send(problemData);
       },
       method: "get",
-      path: "/get/:year/:day",
+      path: "/getproblemdescription/:year/:day",
     },
     driver
   );
 
-export default get;
+export default getProblemDescription;

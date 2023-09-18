@@ -7,7 +7,7 @@ import postSubmit from "./src/routes/submit";
 import getProblemData from "./src/routes/problemdata";
 import postTest from "./src/routes/testroute";
 import getInput from "./src/routes/getInput";
-import get from "./src/routes/get";
+import getProblemDescription from "./src/routes/problemdescription";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ async function main() {
         getIsUp(driver) as Route<AOCParams>,
         postSubmit(driver) as Route<AOCParams>,
         getProblemData(driver) as Route<AOCParams>,
-        get(driver) as Route<AOCParams>,
+        getProblemDescription(driver) as Route<AOCParams>,
         postTest(driver) as Route<AOCParams>,
         getInput(driver) as Route<AOCParams>,
     ];
