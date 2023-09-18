@@ -12,8 +12,13 @@ const postTest: (driver: Driver) => Route<ProblemRequestWithPartParams, ProblemR
           res.status(400).send("Missing year, day, part, or solution");
           return;
         }
-        const problem = `${year}-${day}` as const;
-        const problemData = await driver.test(problem, part, solution);
+        if (isNaN(Number(year)) || isNaN(Number(day)) || isNaN(Number(part))) {
+          res.status(400).send("Year, day, and part must be numbers");
+          return;
+        }
+        const problem = `${Number(year)}-${Number(day)}` as const;
+        const partNumber = Number(part);
+        const problemData = await driver.test(problem, partNumber, solution);
         res.send(problemData);
       },
       method: "post",

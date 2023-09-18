@@ -1,29 +1,26 @@
-import { ProblemRequestBodyWithSolution, ProblemRequestParams, Route } from "../types";
+import { ProblemRequestBodyWithSolution, ProblemRequestWithPartParams, Route } from "../types";
 import { Driver } from "../driver/aoc-driver";
 
-const postSubmit = (driver: Driver): Route<ProblemRequestParams, ProblemRequestBodyWithSolution> =>
+const postSubmit = (driver: Driver): Route<ProblemRequestWithPartParams, ProblemRequestBodyWithSolution> =>
   new Route(
     {
       method: "post",
-      path: "/submit/:year/:day",
+      path: "/submit/:year/:day/:part",
       handler: async (req, res) => {
-        const { year, day } = req.params;
+        const { year, day, part } = req.params;
         const { solution } = req.body;
-        if (!solution || !year || !day) {
-          res.status(400).send("Missing solution, year, or day");
+        if (!solution || !year || !day || !part) {
+          res.status(400).send("Missing solution, year, day, or part");
           return;
         }
-        const problem = `${year}-${day}` as const;
-        const sessionCookie = req.headers["session-cookie"] as
-          | string
-          | undefined;
-
-        if (!sessionCookie) {
-          res.status(400).send("Missing session cookie");
+        if (isNaN(Number(year)) || isNaN(Number(day)) || isNaN(Number(part))) {
+          res.status(400).send("Year, day, and part must be numbers");
           return;
         }
+        const problem = `${Number(year)}-${Number(day)}` as const;
+        const partNumber = Number(part);
 
-        driver.submit(problem, solution).then((result) => {
+        driver.submit(problem, partNumber, solution).then((result) => {
           res.status(200).send(result);
         });
       },

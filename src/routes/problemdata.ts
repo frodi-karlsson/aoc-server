@@ -6,11 +6,11 @@ const getProblemData: (driver: Driver) => Route<ProblemRequestParams> = (driver)
     {
       handler: async (req, res) => {
         const { year, day } = req.params;
-        if (!year || !day) {
-          res.status(400).send("Missing year or day");
+        if (isNaN(Number(year)) || isNaN(Number(day))) {
+          res.status(400).send("Year and day must be numbers");
           return;
         }
-        const problem = `${year}-${day}` as const;
+        const problem = `${Number(year)}-${Number(day)}` as const;
         const problemData = await driver.getProblemData(problem);
         res.send(problemData);
       },

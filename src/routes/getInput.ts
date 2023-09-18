@@ -10,7 +10,11 @@ const getInput: (driver: Driver) => Route<ProblemRequestParams> = (driver) =>
           res.status(400).send("Missing year or day");
           return;
         }
-        const problem = `${year}-${day}` as const;
+        if (isNaN(Number(year)) || isNaN(Number(day))) {
+          res.status(400).send("Year and day must be numbers");
+          return;
+        }
+        const problem = `${Number(year)}-${Number(day)}` as const;
         const problemData = await driver.getInput(problem).catch((err) => {
           console.error(err);
           res.status(500).send(err.message);

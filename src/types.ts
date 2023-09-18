@@ -7,12 +7,12 @@ export type Args = {
 };
 
 export interface ProblemRequestParams {
-  year: number;
-  day: number;
+  year: string;
+  day: string;
 }
 
 export interface ProblemRequestWithPartParams extends ProblemRequestParams {
-  part: number;
+  part: string;
 }
 
 export interface ProblemRequestBodyWithSolution {
@@ -31,8 +31,8 @@ export type ExpressRoute<
 };
 
 export interface AoCDriver {
-  submit(problem: Problem, solution: string): Promise<boolean>;
-  test(problem: Problem, part: number, solution: string): Promise<boolean>;
+  submit(problem: Problem, part: number, solution: string): Promise<{ result: boolean; message: string }>;
+  test(problem: Problem, part: number, solution: string): Promise<{ result: boolean; message: string }>;
   get(problem: Problem): Promise<string>;
 }
 

@@ -17,6 +17,13 @@ export class Server {
         return new Promise<void>((resolve) => {
             const app = express();
             app.use(express.json());
+            app.use((req, res, next) => {
+                req.params = Object.entries(req.params).reduce((acc, [key, value]) => {
+                    return { ...acc, [key]: Number(value) };
+                }, {});
+                console.log("Received request", req.method, req.path, req.params, req.body);
+                next();
+            });
             for (const route of this.routes) {
                 const expressRoute = route.route;
                 app[expressRoute.method](expressRoute.path, expressRoute.handler);

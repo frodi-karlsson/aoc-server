@@ -6,7 +6,7 @@ import { Driver } from "../src/driver/aoc-driver";
 import get from "../src/routes/get";
 import getIsUp from "../src/routes/isup";
 import axios from "axios";
-import { AOCBody, Problem, Route } from "../src/types";
+import { AOCParams, Problem, Route } from "../src/types";
 import postTest from "../src/routes/testroute";
 
 function isProblem(problem: string): problem is Problem {
@@ -31,9 +31,9 @@ describe("Server", () => {
       if (!session) throw new Error("Missing session cookie");
       driver = new Driver(session);
       server.setRoutes([
-        getIsUp(driver) as Route<AOCBody>,
-        get(driver) as Route<AOCBody>,
-        postTest(driver) as Route<AOCBody>,
+        getIsUp(driver) as Route<AOCParams>,
+        get(driver) as Route<AOCParams>,
+        postTest(driver) as Route<AOCParams>,
       ]);
       await server.start();
       await driver.setUpDriver().catch((err) => {
