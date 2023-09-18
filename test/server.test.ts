@@ -57,7 +57,7 @@ describe("Server", () => {
 
   test("get", async () => {
     const [year, day] = testProblem.split("-").map((x) => parseInt(x));
-    const response = await axios.get(`http://localhost:3000/get/${year}/${day}`).catch((err) => {
+    const response = await axios.get(`http://localhost:3000/getproblemdescription/${year}/${day}`).catch((err) => {
       console.log(err);
       return err.response;
     });
